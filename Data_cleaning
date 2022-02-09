@@ -1,0 +1,40 @@
+library(dplyr)
+library(gapminder)
+#View the data
+glimpse(gapminder)
+#selecting verbs
+gapminder %>% 
+        select(country,continent, pop, lifeExp)
+
+#Question-Which country has the smallest population?
+gapminder %>%
+        select(country, continent,pop, year) %>%
+        arrange(pop)
+#Question-Which country has the largest population?
+gapminder %>%
+        arrange(desc(pop))
+
+#Question-How has India's population grown?
+gapminder %>%
+        arrange(desc(pop)) %>%
+        filter(country=='India')
+
+#Question-What is the population of countries with a life 
+        #expectacny greater than or equal to 81?
+gapminder %>%
+        arrange(desc(pop)) %>%
+        filter(lifeExp >= 81)
+
+
+#Question- Which countries have a population over 100 
+        #million and a life expectancy less than 45?
+
+gapminder %>%
+        arrange(desc(pop, country)) %>%
+        filter(pop>100000000, lifeExp<45)
+
+#Question-What is the log of per capa gdp?
+hist(log(gapminder$gdpPercap))
+gapminder %>% 
+        select(country,continent, pop, gdpPercap) %>%
+        mutate(log_gdp=log(gdpPercap))
